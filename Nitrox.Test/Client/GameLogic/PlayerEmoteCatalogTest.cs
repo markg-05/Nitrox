@@ -37,6 +37,17 @@ public sealed class PlayerEmoteCatalogTest
                           .OrderBy(index => index)
                           .Should()
                           .Equal(Enumerable.Range(0, PlayerYell.SOUND_COUNT).Select(index => (byte)index));
+
+        foreach (PlayerEmoteDefinition definition in PlayerEmoteCatalog.OrderedDefinitions)
+        {
+            foreach (byte soundIndex in definition.SoundIndices)
+            {
+                PlayerEmoteCatalog.TryGetGroup(soundIndex, out PlayerEmoteGroup group).Should().BeTrue();
+                group.Should().Be(definition.Group);
+            }
+        }
+
+        PlayerEmoteCatalog.TryGetGroup(PlayerYell.SOUND_COUNT, out _).Should().BeFalse();
     }
 
     [TestMethod]

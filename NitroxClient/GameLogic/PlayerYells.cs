@@ -18,6 +18,7 @@ public sealed class PlayerYells(
     private readonly PlayerManager playerManager = playerManager;
     private readonly PlayerYellSound playerYellSound = playerYellSound;
     private readonly SeamothPassengers seamothPassengers = seamothPassengers;
+    private readonly SynchronizedEmoteFishDanceManager synchronizedEmotes = new(localPlayer, playerManager, seamothPassengers);
 
     public PlayerEmoteGroup RecentGroup { get; private set; } = PlayerEmoteGroup.Yes;
 
@@ -46,6 +47,7 @@ public sealed class PlayerYells(
 
         playerYellSound.TryPlay(sessionId, source, soundIndex, !isInsideVehicle);
         packetSender.Send(new PlayerYell(sessionId, soundIndex, isInsideVehicle));
+        synchronizedEmotes.Register(sessionId, group, isInsideVehicle);
         RecentGroup = group;
         return true;
     }
@@ -65,6 +67,10 @@ public sealed class PlayerYells(
         }
 
         playerYellSound.TryPlay(packet.SessionId, remotePlayer.Body, packet.SoundIndex, !packet.IsInsideVehicle);
+        if (PlayerEmoteCatalog.TryGetGroup(packet.SoundIndex, out PlayerEmoteGroup group))
+        {
+            synchronizedEmotes.Register(packet.SessionId, group, packet.IsInsideVehicle);
+        }
     }
 
     private bool TryGetYellContext(Player player, out bool isInsideVehicle)

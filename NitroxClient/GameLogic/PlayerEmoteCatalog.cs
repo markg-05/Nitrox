@@ -49,8 +49,13 @@ public static class PlayerEmoteCatalog
 
     private static readonly IReadOnlyDictionary<PlayerEmoteGroup, PlayerEmoteDefinition> definitionsByGroup =
         new ReadOnlyDictionary<PlayerEmoteGroup, PlayerEmoteDefinition>(orderedDefinitions.ToDictionary(definition => definition.Group));
+    private static readonly IReadOnlyDictionary<byte, PlayerEmoteGroup> groupsBySoundIndex =
+        new ReadOnlyDictionary<byte, PlayerEmoteGroup>(orderedDefinitions.SelectMany(definition => definition.SoundIndices.Select(index => (index, definition.Group)))
+                                                                        .ToDictionary(entry => entry.index, entry => entry.Group));
 
     public static IReadOnlyList<PlayerEmoteDefinition> OrderedDefinitions => orderedDefinitions;
 
     public static PlayerEmoteDefinition Get(PlayerEmoteGroup group) => definitionsByGroup[group];
+
+    public static bool TryGetGroup(byte soundIndex, out PlayerEmoteGroup group) => groupsBySoundIndex.TryGetValue(soundIndex, out group);
 }
