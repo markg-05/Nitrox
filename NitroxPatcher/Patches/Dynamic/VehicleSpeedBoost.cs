@@ -4,7 +4,7 @@ namespace NitroxPatcher.Patches.Dynamic;
 
 internal static class VehicleSpeedBoost
 {
-    internal const float MULTIPLIER = 4f;
+    internal const float MULTIPLIER = 3f;
 
     internal static bool IsActive(SeaMoth seamoth)
     {
