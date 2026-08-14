@@ -1,12 +1,15 @@
 using Nitrox.Model.Subnautica.Packets;
 using NitroxClient.Communication.Packets.Processors.Core;
+using NitroxClient.GameLogic;
 using NitroxClient.MonoBehaviours;
 using UnityEngine;
 
 namespace NitroxClient.Communication.Packets.Processors;
 
-internal sealed class GrapplingHookMovementProcessor : IClientPacketProcessor<GrapplingHookMovement>
+internal sealed class GrapplingHookMovementProcessor(LocalPlayer localPlayer) : IClientPacketProcessor<GrapplingHookMovement>
 {
+    private readonly LocalPlayer localPlayer = localPlayer;
+
     public Task Process(ClientProcessorContext context, GrapplingHookMovement packet)
     {
         Exosuit exosuit = NitroxEntity.RequireObjectFrom(packet.ExosuitId).RequireComponent<Exosuit>();
@@ -20,7 +23,7 @@ internal sealed class GrapplingHookMovementProcessor : IClientPacketProcessor<Gr
 
         if (grapplingArm.hook.resting)
         {
-            grapplingArm.rope.LaunchHook(35);
+            grapplingArm.rope.LaunchHook(localPlayer.PrawnGrapplingArmSettings.MaxDistance);
         }
 
         Rigidbody rb = grapplingArm.hook.RequireComponent<Rigidbody>();

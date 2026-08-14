@@ -30,15 +30,15 @@ public sealed class VehicleSpeedBoostTest
     }
 
     [TestMethod]
-    public void AppliesQuadrupleForceAndRestoresOriginalValue()
+    public void AppliesConfiguredForceAndRestoresOriginalValue()
     {
         const float originalForce = 12.5f;
         float forwardForce = originalForce;
 
-        float savedForce = VehicleSpeedBoost.ApplyTemporaryMultiplier(ref forwardForce, true);
+        float savedForce = VehicleSpeedBoost.ApplyTemporaryMultiplier(ref forwardForce, true, 3f);
 
         savedForce.Should().Be(originalForce);
-        forwardForce.Should().Be(originalForce * VehicleSpeedBoost.MULTIPLIER);
+        forwardForce.Should().Be(originalForce * 3f);
 
         VehicleSpeedBoost.Restore(ref forwardForce, savedForce);
         forwardForce.Should().Be(originalForce);
@@ -50,9 +50,18 @@ public sealed class VehicleSpeedBoostTest
         const float originalForce = 12.5f;
         float forwardForce = originalForce;
 
-        float savedForce = VehicleSpeedBoost.ApplyTemporaryMultiplier(ref forwardForce, false);
+        float savedForce = VehicleSpeedBoost.ApplyTemporaryMultiplier(ref forwardForce, false, 3f);
 
         savedForce.Should().Be(originalForce);
         forwardForce.Should().Be(originalForce);
+    }
+
+    [TestMethod]
+    public void ConfiguredMultiplierIsBoundedAndHandlesInvalidValues()
+    {
+        VehicleSpeedBoost.GetMultiplier(0f).Should().Be(1f);
+        VehicleSpeedBoost.GetMultiplier(3.5f).Should().Be(3.5f);
+        VehicleSpeedBoost.GetMultiplier(25f).Should().Be(20f);
+        VehicleSpeedBoost.GetMultiplier(float.NaN).Should().Be(3f);
     }
 }

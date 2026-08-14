@@ -106,6 +106,8 @@
     "Nitrox_Settings_SafetyLatencyMargin": "Safety latency margin (ms)",
     "Nitrox_Settings_SurfaceBreachMomentumRetention": "Surface breach momentum retention",
     "Nitrox_Settings_SurfaceBreachMomentumRetention_Tooltip": "Fraction of upward speed reached before the surface slowdown that is preserved for intentional ordinary-swim and Seaglide breaches. Only used when enhanced breaches are enabled; turning them off keeps vanilla behavior. Vehicles are unaffected.",
+    "Nitrox_Settings_VehicleSpeedBoostMultiplier": "Vehicle boost multiplier",
+    "Nitrox_Settings_VehicleSpeedBoostMultiplier_Tooltip": "Forward propulsion multiplier applied to the Seamoth and Cyclops while holding Sprint and moving forward.",
     "Nitrox_ShowPing": "Show Ping",
     "Nitrox_SilenceChat": "Mute chat",
     "Nitrox_SilencedChatNotif": "Chat is now muted",

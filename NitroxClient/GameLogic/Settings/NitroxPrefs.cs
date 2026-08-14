@@ -6,6 +6,9 @@ namespace NitroxClient.GameLogic.Settings
 {
     public class NitroxPrefs
     {
+        public const float VEHICLE_SPEED_BOOST_MIN_MULTIPLIER = 1f;
+        public const float VEHICLE_SPEED_BOOST_DEFAULT_MULTIPLIER = 3f;
+        public const float VEHICLE_SPEED_BOOST_MAX_MULTIPLIER = 20f;
         // Add new fields here, you can use bool, float and int as type
         public static readonly NitroxPref<bool> HideIp = new("Nitrox.hideIp");
         /// <summary>
@@ -29,6 +32,11 @@ namespace NitroxClient.GameLogic.Settings
         /// Applies to intentional ordinary-swim and Seaglide breaches only.
         /// </summary>
         public static readonly NitroxPref<float> SurfaceBreachMomentumRetention = new("Nitrox.surfaceBreachMomentumRetention", 1f);
+
+        /// <summary>
+        /// Forward propulsion multiplier used while boosting a locally piloted Seamoth or Cyclops.
+        /// </summary>
+        public static readonly NitroxPref<float> VehicleSpeedBoostMultiplier = new("Nitrox.vehicleSpeedBoostMultiplier", VEHICLE_SPEED_BOOST_DEFAULT_MULTIPLIER);
         /// <summary>
         /// In seconds. <see cref="MovementReplicator"/>
         /// </summary>

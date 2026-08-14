@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Nitrox.Model.Configuration;
 using Nitrox.Model.DataStructures;
 using Nitrox.Model.DataStructures.GameLogic;
 using Nitrox.Model.DataStructures.Unity;
@@ -43,6 +44,7 @@ namespace Nitrox.Model.Subnautica.Packets
         public bool InPrecursor { get; }
         public bool DisplaySurfaceWater { get; }
         public bool MarkDeathPointsWithBeacon { get; }
+        public PrawnGrapplingArmSettings PrawnGrapplingArmSettings { get; }
 
         public InitialPlayerSync(NitroxId playerGameObjectId,
             bool firstTimeConnecting,
@@ -70,7 +72,8 @@ namespace Nitrox.Model.Subnautica.Packets
             SessionSettings sessionSettings,
             bool inPrecursor,
             bool displaySurfaceWater,
-            bool markDeathPointsWithBeacon)
+            bool markDeathPointsWithBeacon,
+            PrawnGrapplingArmSettings prawnGrapplingArmSettings)
         {
             AssignedEscapePodId = assignedEscapePodId;
             PlayerGameObjectId = playerGameObjectId;
@@ -99,6 +102,7 @@ namespace Nitrox.Model.Subnautica.Packets
             InPrecursor = inPrecursor;
             DisplaySurfaceWater = displaySurfaceWater;
             MarkDeathPointsWithBeacon = markDeathPointsWithBeacon;
+            PrawnGrapplingArmSettings = prawnGrapplingArmSettings;
         }
 
         /// <remarks>Used for deserialization</remarks>
@@ -129,7 +133,8 @@ namespace Nitrox.Model.Subnautica.Packets
             SessionSettings sessionSettings,
             bool inPrecursor,
             bool displaySurfaceWater,
-            bool markDeathPointsWithBeacon)
+            bool markDeathPointsWithBeacon,
+            PrawnGrapplingArmSettings prawnGrapplingArmSettings)
         {
             AssignedEscapePodId = assignedEscapePodId;
             PlayerGameObjectId = playerGameObjectId;
@@ -158,6 +163,7 @@ namespace Nitrox.Model.Subnautica.Packets
             InPrecursor = inPrecursor;
             DisplaySurfaceWater = displaySurfaceWater;
             MarkDeathPointsWithBeacon = markDeathPointsWithBeacon;
+            PrawnGrapplingArmSettings = prawnGrapplingArmSettings;
         }
     }
 }

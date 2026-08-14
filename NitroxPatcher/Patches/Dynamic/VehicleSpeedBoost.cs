@@ -1,10 +1,10 @@
+using NitroxClient.GameLogic.Settings;
 using UnityEngine;
 
 namespace NitroxPatcher.Patches.Dynamic;
 
 internal static class VehicleSpeedBoost
 {
-    internal const float MULTIPLIER = 3f;
 
     internal static bool IsActive(SeaMoth seamoth)
     {
@@ -36,12 +36,27 @@ internal static class VehicleSpeedBoost
 
     internal static float ApplyTemporaryMultiplier(ref float forwardForce, bool boostActive)
     {
+        return ApplyTemporaryMultiplier(ref forwardForce, boostActive, NitroxPrefs.VehicleSpeedBoostMultiplier.Value);
+    }
+
+    internal static float ApplyTemporaryMultiplier(ref float forwardForce, bool boostActive, float configuredMultiplier)
+    {
         float originalForce = forwardForce;
         if (boostActive)
         {
-            forwardForce *= MULTIPLIER;
+            forwardForce *= GetMultiplier(configuredMultiplier);
         }
         return originalForce;
+    }
+
+    internal static float GetMultiplier(float configuredMultiplier)
+    {
+        if (float.IsNaN(configuredMultiplier))
+        {
+            return NitroxPrefs.VEHICLE_SPEED_BOOST_DEFAULT_MULTIPLIER;
+        }
+
+        return UnityEngine.Mathf.Clamp(configuredMultiplier, NitroxPrefs.VEHICLE_SPEED_BOOST_MIN_MULTIPLIER, NitroxPrefs.VEHICLE_SPEED_BOOST_MAX_MULTIPLIER);
     }
 
     internal static void Restore(ref float forwardForce, float originalForce)

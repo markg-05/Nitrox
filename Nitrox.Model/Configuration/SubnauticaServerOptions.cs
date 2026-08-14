@@ -66,6 +66,19 @@ public sealed partial class SubnauticaServerOptions
     [PropertyDescription("Use the server world catalog for Scanner Room resource results. Disable to temporarily restore vanilla client-local scanning.")]
     public bool EnableScannerRoomResourceSync { get; set; } = true;
 
+    [Range(float.Epsilon, float.MaxValue)]
+    [PropertyDescription("Maximum Prawn Suit grappling arm range in meters. Default: 105; vanilla: 35.")]
+    public float PrawnGrapplingArmMaxDistance { get; set; } = PrawnGrapplingArmSettings.DEFAULT_MAX_DISTANCE;
+
+    [Range(float.Epsilon, float.MaxValue)]
+    [PropertyDescription("Acceleration applied to the Prawn Suit while its grappling arm is attached. Default: 30; vanilla: 15.")]
+    public float PrawnGrapplingArmPullAcceleration { get; set; } = PrawnGrapplingArmSettings.DEFAULT_PULL_ACCELERATION;
+
+    [Range(float.Epsilon, float.MaxValue)]
+    [PropertyDescription("Prawn Suit grappling hook launch speed in meters per second. Default: 50; vanilla: 25.")]
+    public float PrawnGrapplingArmLaunchSpeed { get; set; } = PrawnGrapplingArmSettings.DEFAULT_LAUNCH_SPEED;
+
+
     [Required]
     [RegularExpression(@"\w+")]
     public string Seed { get; set; } = "";

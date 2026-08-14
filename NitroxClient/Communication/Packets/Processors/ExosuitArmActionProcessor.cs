@@ -6,8 +6,10 @@ using UnityEngine;
 
 namespace NitroxClient.Communication.Packets.Processors;
 
-internal sealed class ExosuitArmActionProcessor : IClientPacketProcessor<ExosuitArmActionPacket>
+internal sealed class ExosuitArmActionProcessor(LocalPlayer localPlayer) : IClientPacketProcessor<ExosuitArmActionPacket>
 {
+    private readonly LocalPlayer localPlayer = localPlayer;
+
     public Task Process(ClientProcessorContext context, ExosuitArmActionPacket packet)
     {
         if (!NitroxEntity.TryGetObjectFrom(packet.ExosuitId, out GameObject gameObject))
@@ -28,7 +30,7 @@ internal sealed class ExosuitArmActionProcessor : IClientPacketProcessor<Exosuit
                 ExosuitModuleEvent.UseDrill(drillArm, packet.ArmAction);
                 break;
             case TechType.ExosuitGrapplingArmModule when arm is ExosuitGrapplingArm grapplingArm:
-                ExosuitModuleEvent.UseGrappling(grapplingArm, packet.ArmAction);
+                ExosuitModuleEvent.UseGrappling(grapplingArm, packet.ArmAction, localPlayer.PrawnGrapplingArmSettings);
                 break;
             case TechType.ExosuitPropulsionArmModule when arm is ExosuitPropulsionArm propulsionArm:
                 ExosuitModuleEvent.UsePropulsion(propulsionArm, packet.ArmAction);

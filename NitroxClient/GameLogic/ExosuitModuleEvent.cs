@@ -1,4 +1,5 @@
 using Nitrox.Model.DataStructures;
+using Nitrox.Model.Configuration;
 using Nitrox.Model.Subnautica.Packets;
 using NitroxClient.Communication.Abstract;
 using UnityEngine;
@@ -65,7 +66,7 @@ public class ExosuitModuleEvent
         }
     }
 
-    public static void UseGrappling(ExosuitGrapplingArm grapplingArm, ExosuitArmAction armAction)
+    public static void UseGrappling(ExosuitGrapplingArm grapplingArm, ExosuitArmAction armAction, PrawnGrapplingArmSettings settings)
     {
         switch (armAction)
         {
@@ -77,7 +78,7 @@ public class ExosuitModuleEvent
                 grapplingArm.animator.SetBool(UseToolAnimation, true);
                 if (!grapplingArm.rope.isLaunching)
                 {
-                    grapplingArm.rope.LaunchHook(35f);
+                    grapplingArm.rope.LaunchHook(settings.MaxDistance);
                 }
 
                 GrapplingHook hook = grapplingArm.hook;

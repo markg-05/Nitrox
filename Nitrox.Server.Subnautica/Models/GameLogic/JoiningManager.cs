@@ -208,7 +208,12 @@ internal sealed class JoiningManager(
             sessionSettings,
             player.InPrecursor,
             player.DisplaySurfaceWater,
-            options.Value.MarkDeathPointsWithBeacon
+            options.Value.MarkDeathPointsWithBeacon,
+            new PrawnGrapplingArmSettings(
+                options.Value.PrawnGrapplingArmMaxDistance,
+                options.Value.PrawnGrapplingArmPullAcceleration,
+                options.Value.PrawnGrapplingArmLaunchSpeed
+            )
         );
 
         await packetSender.SendPacketAsync(initialPlayerSync, player.SessionId);

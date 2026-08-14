@@ -1,4 +1,5 @@
 using System;
+using Nitrox.Model.Configuration;
 using Nitrox.Model.Core;
 using NitroxClient.Communication.Abstract;
 using NitroxClient.GameLogic.PlayerLogic.PlayerModel;
@@ -41,6 +42,7 @@ public class LocalPlayer : ILocalNitroxPlayer
     public IntroCinematicMode IntroCinematicMode { get; set; }
     public bool KeepInventoryOnDeath { get; set; }
     public bool MarkDeathPointsWithBeacon { get; set; }
+    public PrawnGrapplingArmSettings PrawnGrapplingArmSettings { get; set; }
 
     public LocalPlayer(IMultiplayerSession multiplayerSession, IPacketSender packetSender, ThrottledPacketSender throttledPacketSender)
     {
@@ -54,6 +56,11 @@ public class LocalPlayer : ILocalNitroxPlayer
         IntroCinematicMode = IntroCinematicMode.NONE;
         KeepInventoryOnDeath = false;
         MarkDeathPointsWithBeacon = false;
+        PrawnGrapplingArmSettings = new PrawnGrapplingArmSettings(
+            PrawnGrapplingArmSettings.DEFAULT_MAX_DISTANCE,
+            PrawnGrapplingArmSettings.DEFAULT_PULL_ACCELERATION,
+            PrawnGrapplingArmSettings.DEFAULT_LAUNCH_SPEED
+        );
     }
 
     public void BroadcastLocation(Vector3 location, Vector3 velocity, Quaternion bodyRotation, Quaternion aimingRotation)

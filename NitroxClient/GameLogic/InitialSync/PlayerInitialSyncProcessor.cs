@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NitroxClient.GameLogic.InitialSync.Abstract;
 using NitroxClient.MonoBehaviours;
+using Nitrox.Model.Configuration;
 using Nitrox.Model.DataStructures;
 using Nitrox.Model.DataStructures.GameLogic;
 using Nitrox.Model.Subnautica.DataStructures.GameLogic;
@@ -37,7 +38,7 @@ public sealed class PlayerInitialSyncProcessor : InitialSyncProcessor
         AddStep(sync => SetPlayerStats(sync.PlayerStatsData));
         AddStep(sync => SetUsedItems(sync.UsedItems));
         AddStep(sync => SetPlayerGameMode(sync.GameMode));
-        AddStep(sync => ApplySettings(sync.KeepInventoryOnDeath, sync.SessionSettings.FastHatch, sync.SessionSettings.FastGrow, sync.MarkDeathPointsWithBeacon));
+        AddStep(sync => ApplySettings(sync.KeepInventoryOnDeath, sync.SessionSettings.FastHatch, sync.SessionSettings.FastGrow, sync.MarkDeathPointsWithBeacon, sync.PrawnGrapplingArmSettings));
     }
 
     private void SetPlayerPermissions(Perms permissions)
@@ -149,10 +150,11 @@ public sealed class PlayerInitialSyncProcessor : InitialSyncProcessor
         GameModeUtils.SetGameMode((GameModeOption)(int)gameMode, GameModeOption.None);
     }
 
-    private void ApplySettings(bool keepInventoryOnDeath, bool fastHatch, bool fastGrow, bool markDeathPointsWithBeacon)
+    private void ApplySettings(bool keepInventoryOnDeath, bool fastHatch, bool fastGrow, bool markDeathPointsWithBeacon, PrawnGrapplingArmSettings prawnGrapplingArmSettings)
     {
         localPlayer.KeepInventoryOnDeath = keepInventoryOnDeath;
         localPlayer.MarkDeathPointsWithBeacon = markDeathPointsWithBeacon;
+        localPlayer.PrawnGrapplingArmSettings = prawnGrapplingArmSettings;
         NoCostConsoleCommand.main.fastHatchCheat = fastHatch;
         NoCostConsoleCommand.main.fastGrowCheat = fastGrow;
         if (!fastHatch && !fastGrow)

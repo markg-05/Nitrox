@@ -44,6 +44,8 @@ public class PatchesTranspilerTest
         [typeof(Drillable_SpawnLootAsync_Patch), 2],
         [typeof(Eatable_IterateDespawn_Patch), 2],
         [typeof(EndCreditsManager_OnLateUpdate_Patch), 1],
+        [typeof(ExosuitGrapplingArm_FixedUpdate_Patch), 0],
+        [typeof(ExosuitGrapplingArm_OnHit_Patch), 0],
         [typeof(EnergyMixin_SpawnDefaultAsync_Patch), -64],
         [typeof(EntityCell_AwakeAsync_Patch), 2],
         [typeof(EntityCell_SleepAsync_Patch), 2],
