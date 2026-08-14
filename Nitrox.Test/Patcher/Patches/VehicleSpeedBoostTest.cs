@@ -30,7 +30,7 @@ public sealed class VehicleSpeedBoostTest
     }
 
     [TestMethod]
-    public void AppliesDoubleForceAndRestoresOriginalValue()
+    public void AppliesQuadrupleForceAndRestoresOriginalValue()
     {
         const float originalForce = 12.5f;
         float forwardForce = originalForce;
